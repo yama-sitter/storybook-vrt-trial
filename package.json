@@ -18,7 +18,7 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "screenshot": "storycap --serverCmd \"npm run storybook\" http://localhost:6006 --serverTimeout 600000",
+    "screenshot": "storycap -C puppeteer --serverCmd \"npm run storybook\" http://localhost:6006 --serverTimeout 600000",
     "regression": "reg-suit run"
   },
   "eslintConfig": {
@@ -56,6 +56,7 @@
     "@storybook/node-logger": "^6.3.12",
     "@storybook/preset-create-react-app": "^3.2.0",
     "@storybook/react": "^6.3.12",
+    "puppeteer": "^13.0.1",
     "reg-keygen-git-hash-plugin": "^0.11.1",
     "reg-notify-github-plugin": "^0.11.1",
     "reg-notify-slack-plugin": "^0.11.0",
