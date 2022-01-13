@@ -18,7 +18,7 @@ jobs:
             - v1-dependencies-
       - run:
           name: Install dependencies
-          command: yarn --frozen-lockfile
+          command: yarn --frozen-lockfile --cache-folder node_modules
       - save_cache:
           paths:
             - node_modules
