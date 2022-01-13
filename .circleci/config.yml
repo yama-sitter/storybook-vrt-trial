@@ -14,15 +14,16 @@ jobs:
           command: echo $CLIENT_SECRET | base64 -d > /root/client-secret.json
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "yarn.lock" }}
-            - v1-dependencies-
+            - yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - yarn-packages-v1-{{ .Branch }}-
+            - yarn-packages-v1-
       - run:
           name: Install dependencies
-          command: yarn --frozen-lockfile --cache-folder node_modules
+          command: yarn --immutable --cache-folder ~/.cache/yarn
       - save_cache:
           paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "yarn.lock" }}
+            - ~/.cache/yarn
+          key: yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run:
           name: Take screenshot
           command: yarn run screenshot
