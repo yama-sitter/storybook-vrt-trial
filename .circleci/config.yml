@@ -2,9 +2,9 @@ version: 2.1
 
 jobs:
   build:
-    working_directory: ~/regression_test
+    working_directory: ~/workspace
     docker:
-      - image: regviz/node-xcb
+      - image: circleci/node:13.12-browsers
     environment:
       GOOGLE_APPLICATION_CREDENTIALS: "/root/client-secret.json"
     steps:
