@@ -2,27 +2,27 @@ version: 2.1
 
 jobs:
   build:
-    working_directory: ~/regression_test
     docker:
-      - image: regviz/node-xcb
-    environment:
-      GOOGLE_APPLICATION_CREDENTIALS: "/root/client-secret.json"
+      - image: cimg/node:17.3.1-browsers
+    working_directory: ~/workspace
     steps:
       - checkout
-      - run:
-          name: Setup GCP
-          command: echo $CLIENT_SECRET | base64 -d > /root/client-secret.json
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "yarn.lock" }}
-            - v1-dependencies-
+      # - restore_cache:
+      #     keys:
+      #       - yarn-packages-{{ checksum "yarn.lock" }}
+      #       - yarn-packages-
       - run:
           name: Install dependencies
-          command: yarn --frozen-lockfile
+          command: yarn --immutable
       - save_cache:
           paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "yarn.lock" }}
+            - ~/.cache/yarn
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Setup GCP
+          command: |
+            echo $CLIENT_SECRET | base64 -d > client-secret.json
+            export GOOGLE_APPLICATION_CREDENTIALS="client-secret.json"
       - run:
           name: Take screenshot
           command: yarn run screenshot
