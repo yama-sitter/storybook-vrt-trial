@@ -5,22 +5,20 @@ jobs:
     working_directory: ~/workspace
     docker:
       - image: circleci/node:13.12-browsers
-    environment:
-      GOOGLE_APPLICATION_CREDENTIALS: "/workspace/client-secret.json"
     steps:
       - checkout
       - restore_cache:
           keys:
-            - yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
-            - yarn-packages-v1-{{ .Branch }}-
-            - yarn-packages-v1-
+            - yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - yarn-packages-{{ .Branch }}-
+            - yarn-packages-
       - run:
           name: Install dependencies
           command: yarn --immutable --cache-folder .cache/yarn
       - save_cache:
           paths:
             - .cache/yarn
-          key: yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run:
           name: Setup GCP
           command: |
