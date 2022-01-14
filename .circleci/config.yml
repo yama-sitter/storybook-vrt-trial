@@ -2,16 +2,13 @@ version: 2.1
 
 jobs:
   build:
-    working_directory: /workspace
+    working_directory: ~/workspace
     docker:
       - image: circleci/node:13.12-browsers
     environment:
       GOOGLE_APPLICATION_CREDENTIALS: "/workspace/client-secret.json"
     steps:
       - checkout
-      - run:
-          name: Setup GCP
-          command: echo $CLIENT_SECRET | base64 -d > /workspace/client-secret.json
       - restore_cache:
           keys:
             - yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
@@ -24,6 +21,11 @@ jobs:
           paths:
             - ~/.cache/yarn
           key: yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+      - run:
+          name: Setup GCP
+          command: |
+            echo $CLIENT_SECRET | base64 -d > client-secret.json
+            export GOOGLE_APPLICATION_CREDENTIALS="client-secret.json"
       - run:
           name: Take screenshot
           command: yarn run screenshot
