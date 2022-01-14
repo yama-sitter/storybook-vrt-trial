@@ -18,7 +18,7 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "screenshot": "storycap --verbose --serverCmd \"start-storybook -p 6006\" http://localhost:6006 --serverTimeout 300000",
+    "screenshot": "storycap --serverCmd \"start-storybook -p 6006\" http://localhost:6006 --serverTimeout 300000",
     "regression": "reg-suit run"
   },
   "eslintConfig": {

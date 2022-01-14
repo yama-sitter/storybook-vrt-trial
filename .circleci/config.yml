@@ -6,7 +6,7 @@ jobs:
       - image: cimg/node:lts-browsers
     working_directory: ~/workspace
     environment:
-      GOOGLE_APPLICATION_CREDENTIALS: /tmp/google/credentials.json
+      GOOGLE_APPLICATION_CREDENTIALS: /tmp/credentials.json
     steps:
       - checkout
       - restore_cache:
