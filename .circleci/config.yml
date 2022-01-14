@@ -4,7 +4,7 @@ jobs:
   build:
     docker:
       - image: circleci/node:13.12-browsers
-    working_directory: ./workspace
+    working_directory: ~/workspace
     steps:
       - checkout
       - restore_cache:
