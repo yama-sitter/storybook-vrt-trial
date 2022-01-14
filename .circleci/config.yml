@@ -5,6 +5,8 @@ jobs:
     docker:
       - image: cimg/node:lts-browsers
     working_directory: ~/workspace
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: /tmp/google/credentials.json
     steps:
       - checkout
       - restore_cache:
@@ -21,8 +23,7 @@ jobs:
       - run:
           name: Setup GCP
           command: |
-            echo $CLIENT_SECRET | base64 -d > client-secret.json
-            export GOOGLE_APPLICATION_CREDENTIALS="client-secret.json"
+            echo $CLIENT_SECRET | base64 -d > "${GOOGLE_APPLICATION_CREDENTIALS}"
       - run:
           name: Take screenshot
           command: yarn run screenshot
