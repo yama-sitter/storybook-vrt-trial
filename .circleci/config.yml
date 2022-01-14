@@ -9,8 +9,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
-            - yarn-packages-{{ .Branch }}-
+            - yarn-packages-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - yarn-packages-{{ arch }}-{{ .Branch }}-
             - yarn-packages-
       - run:
           name: Install dependencies
@@ -18,7 +18,7 @@ jobs:
       - save_cache:
           paths:
             - .cache/yarn
-          key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          key: yarn-packages-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run:
           name: Setup GCP
           command: |
