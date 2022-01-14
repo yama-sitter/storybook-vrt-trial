@@ -4,20 +4,20 @@ jobs:
   build:
     docker:
       - image: circleci/node:13.12-browsers
+    working_directory: ./workspace
     steps:
       - checkout
       - restore_cache:
           keys:
-            - yarn-packages-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
-            - yarn-packages-{{ arch }}-{{ .Branch }}-
+            - yarn-packages-{{ checksum "yarn.lock" }}
             - yarn-packages-
       - run:
           name: Install dependencies
-          command: yarn --immutable --cache-folder .cache/yarn
+          command: yarn --immutable --cache-folder ~/.cache/yarn
       - save_cache:
           paths:
-            - .cache/yarn
-          key: yarn-packages-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - ~/.cache/yarn
+          key: yarn-packages-{{ checksum "yarn.lock" }}
       - run:
           name: Setup GCP
           command: |
