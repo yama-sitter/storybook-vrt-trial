@@ -13,10 +13,10 @@ jobs:
             - yarn-packages-
       - run:
           name: Install dependencies
-          command: yarn --immutable --cache-folder /tmp/yarn
+          command: yarn --immutable
       - save_cache:
           paths:
-            - /tmp/yarn
+            - ~/.cache/yarn
           key: yarn-packages-{{ checksum "yarn.lock" }}
       - run:
           name: Setup GCP
