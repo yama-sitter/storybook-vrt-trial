@@ -1,0 +1,32 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: cimg/node:lts-browsers
+    working_directory: ~/workspace
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: /tmp/credentials.json
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+            - yarn-packages-
+      - run:
+          name: Install dependencies
+          command: yarn --immutable
+      - save_cache:
+          paths:
+            - ~/.cache/yarn
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Setup GCP
+          command: |
+            echo $CLIENT_SECRET | base64 -d > "${GOOGLE_APPLICATION_CREDENTIALS}"
+      - run:
+          name: Take screenshot
+          command: yarn run screenshot
+      - run:
+          name: Run regression test
+          command: yarn run regression
