@@ -34,3 +34,8 @@ jobs:
       - run:
           name: Run regression test
           command: yarn run regression
+workflows:
+  version: 2
+  regression_test:
+    jobs:
+      - build
