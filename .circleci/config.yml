@@ -9,7 +9,8 @@ jobs:
       GOOGLE_APPLICATION_CREDENTIALS: /tmp/credentials.json
     filters:
       branches:
-        ignore: /main
+        ignore:
+          - /main
     steps:
       - checkout
       - restore_cache:
