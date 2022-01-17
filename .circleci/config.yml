@@ -7,10 +7,6 @@ jobs:
     working_directory: ~/workspace
     environment:
       GOOGLE_APPLICATION_CREDENTIALS: /tmp/credentials.json
-    filters:
-      branches:
-        ignore:
-          - main
     steps:
       - checkout
       - restore_cache:
@@ -34,8 +30,13 @@ jobs:
       - run:
           name: Run regression test
           command: yarn run regression
+
 workflows:
   version: 2
-  regression_test:
+  regression-test:
     jobs:
-      - build
+      - build:
+          filters:
+            branches:
+              ignore:
+                - main
