@@ -10,7 +10,7 @@ jobs:
     filters:
       branches:
         ignore:
-          - /main
+          - main
     steps:
       - checkout
       - restore_cache:
